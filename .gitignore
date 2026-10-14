@@ -1,0 +1,10 @@
+.env
+.env.*
+node_modules/
+*.log
+*.xlsx
+*.csv
+*.tsv
+.openai/
+Thumbs.db
+.DS_Store
