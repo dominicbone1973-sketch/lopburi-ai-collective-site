@@ -186,7 +186,7 @@ function introductionText(data,language){
   const organisation=data.organisation || (language==='th'?'ไม่ได้ระบุ':'Not specified');
   return 'Lopburi AI Collective — ชุมชน AI ลพบุรี\n\n'+labels[0]+': '+data.name+'\n'+labels[1]+': '+data.email+'\n'+labels[2]+': '+organisation+'\n\n'+labels[3]+':\n'+data.question+(language==='th'?'\n\nรับข่าวสารชุมชน: ':'\n\nCommunity updates: ')+(data.updates?(language==='th'?'ต้องการรับ':'Yes, please'):(language==='th'?'ไม่ได้เลือก':'Not requested'))+'\n\n[LOPBURI_UPDATES_V1]\nPreference: '+(data.updates?'REQUESTED':'NOT_REQUESTED')+'\nConsent-version: 2026-10-12-v1\nConsent-wording: '+data.consentWording+'\nPrepared-at: '+data.preparedAt+'\nConsent-source: introduction-email-draft\n[/LOPBURI_UPDATES_V1]';
 }
-window.refreshContactCard=()=>{if(preparedIntroduction){const body=introductionText(preparedIntroduction,siteLanguage);document.querySelector('#contact-summary').textContent=body;document.querySelector('#email-introduction').href='mailto:lopburiaicollective@gmail.com?subject='+encodeURIComponent('Hello Lopburi AI Collective')+'&body='+encodeURIComponent(body)}};
+window.refreshContactCard=()=>{if(preparedIntroduction){const body=introductionText(preparedIntroduction,siteLanguage);document.querySelector('#contact-summary').textContent=body;document.querySelector('#email-introduction').href='mailto:lopburiaicollective+newmembers@gmail.com?subject='+encodeURIComponent('Hello Lopburi AI Collective')+'&body='+encodeURIComponent(body)}};
 contactForm.addEventListener('submit',event=>{
   event.preventDefault();
   ['contact-name','contact-email','contact-organisation','brief-text'].forEach(id=>{const input=document.getElementById(id);input.value=input.value.trim()});
