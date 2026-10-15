@@ -5,5 +5,6 @@
   "lineQrImage": "assets/line-qr.png",
   "facebookUrl": "",
   "facebookQrImage": "",
-  "note": "Direct email link is available. Form submissions and receipt acknowledgements remain disabled until a receiving service is configured and tested."
+  "note": "Direct email link is available. Form submissions and receipt acknowledgements remain disabled until a receiving service is configured and tested.",
+  "enquiriesEmail": "lopburiaicollective+enquiries@gmail.com"
 }
