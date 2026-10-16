@@ -1,0 +1,9 @@
+/* A readable, responsive notice using the site's existing fonts and brand colours. */
+.privacy-header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:24px;border-bottom:1px solid var(--line)}
+.privacy-home{display:flex;align-items:center;gap:12px}.privacy-home img{width:56px}
+.privacy-header nav{display:flex;gap:8px}.privacy-header button{border:1px solid var(--line);border-radius:999px;background:white;color:var(--navy);padding:9px 14px}
+.privacy-header button[aria-pressed=true]{background:var(--navy);color:white}
+.privacy-document{max-width:850px;padding-block:36px 64px}.privacy-document h1{font-size:clamp(2rem,4vw,3.1rem);line-height:1.2;margin:18px 0 24px}.privacy-document h2{font-size:1.4rem;letter-spacing:0;line-height:1.4;margin:32px 0 12px}.privacy-document p{line-height:1.8}
+.privacy-lead{font-size:1.2rem}.privacy-draft{padding:16px 20px;border:1px solid #d0b66a;border-radius:12px;background:#fff6d9;color:#594512;margin-bottom:28px}.privacy-contact{padding:20px;background:white;border:1px solid var(--line);border-radius:14px}.privacy-contact dt{font-weight:600}.privacy-contact dd{margin:4px 0 18px;overflow-wrap:anywhere}.privacy-contact dd:last-child{margin-bottom:0}
+.privacy-form-note{font-size:.9375rem;line-height:1.65;margin:14px 0 18px;color:var(--muted)}.privacy-form-note a{text-decoration:underline;text-underline-offset:3px;color:var(--teal)}
+@media(max-width:600px){.privacy-header{align-items:flex-start;flex-direction:column}.privacy-header,.privacy-document{width:calc(100% - 40px)}.privacy-document{padding-top:24px}}

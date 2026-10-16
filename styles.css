@@ -441,12 +441,12 @@ html:lang(th) .hero-intro{line-height:1.75}
 @media(max-width:780px){.hero-arrival{margin:16px 20px;padding:16px 18px;max-width:calc(100% - 40px)}.is-scrubbing .hero-arrival{left:20px;right:20px;bottom:max(24px,env(safe-area-inset-bottom));max-width:none;width:auto}.hero-arrival p{font-size:1.125rem}.hero-arrival .text-link{font-size:1rem}html:lang(th) .hero-arrival p{line-height:1.6}}
 @media(max-height:540px){.is-scrubbing .hero-arrival{bottom:16px;padding:12px 16px}.hero-arrival p{font-size:1rem;margin-bottom:5px}}
 /* Stage 3b: shallow depth and a clear invitation action. */
-.hero-arrival{background:rgba(24,47,65,.96);border:1px solid rgba(209,234,234,.3);box-shadow:0 12px 30px rgba(12,29,42,.24),inset 0 1px 0 rgba(255,255,255,.14);padding:24px 26px;border-radius:20px}
-.hero-arrival p{font-size:1.5rem;line-height:1.4;margin-bottom:16px;text-shadow:0 1px 2px rgba(0,0,0,.18)}
+.hero-arrival{background:rgba(24,47,65,.72);border:1px solid rgba(209,234,234,.3);box-shadow:0 12px 30px rgba(12,29,42,.24),inset 0 1px 0 rgba(255,255,255,.14);padding:22px 24px;border-radius:20px}
+.hero-arrival p{font-size:1.35rem;font-weight:400;line-height:1.4;margin-bottom:14px;text-shadow:0 1px 2px rgba(0,0,0,.18)}
 .hero-arrival .text-link{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#007F78;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:11px 16px;min-height:46px;font-size:1rem;line-height:1.5;box-shadow:0 3px 8px rgba(9,28,36,.18);transition:background .2s,box-shadow .2s}
 .hero-arrival .text-link:hover{background:#006B65;box-shadow:0 4px 12px rgba(9,28,36,.24)}
 .hero-arrival .text-link:focus-visible{outline:3px solid #8CE2D5;outline-offset:4px}
-@media(min-width:781px){.is-scrubbing .hero-arrival{width:420px;max-width:calc(100% - 64px)}html:lang(th) .hero-arrival p{font-size:1.4rem;line-height:1.6}}
+@media(min-width:781px){.is-scrubbing .hero-arrival{width:360px;max-width:calc(100% - 64px)}html:lang(th) .hero-arrival p{font-size:1.4rem;line-height:1.6}}
 @media(max-width:780px){.hero-arrival{padding:18px 20px;border-radius:18px;box-shadow:0 8px 22px rgba(12,29,42,.24),inset 0 1px 0 rgba(255,255,255,.14)}.hero-arrival p{font-size:1.125rem;line-height:1.5;margin-bottom:12px}.hero-arrival .text-link{width:100%;font-size:1rem;padding:10px 12px;min-height:46px;text-align:center}html:lang(th) .hero-arrival p{font-size:1.1875rem;line-height:1.6}}
 @media(max-height:540px){.hero-arrival{padding:14px 18px}.hero-arrival p{font-size:1.125rem;margin-bottom:10px}.hero-arrival .text-link{padding-block:8px;min-height:44px}}
 @media(prefers-reduced-motion:reduce){.hero-arrival .text-link{transition:none}}
@@ -579,3 +579,14 @@ html:lang(th) .section .button,html:lang(th) .section .text-link{line-height:1.6
 @media(max-width:374px){.site-header{grid-template-columns:minmax(0,1fr) 112px;column-gap:8px}.site-header .menu-toggle,.site-header .language-switch{width:112px}.site-header .language-switch button{gap:4px;padding-inline:3px}}
 
 .contact-card .mailing-optin{padding:16px;border:1px solid #bfdad5;border-radius:14px;background:#eaf3f1;margin-top:20px}.contact-card .mailing-optin label{display:flex;align-items:flex-start;gap:12px;font-size:1rem;line-height:1.6;margin:0;cursor:pointer}.contact-card .mailing-optin input[type=checkbox]{width:22px;height:22px;min-height:0;flex:0 0 22px;margin:3px 0 0;padding:0;accent-color:#007f78}.contact-card .mailing-optin small{display:block;font-size:.875rem;line-height:1.6;margin:8px 0 0 34px;color:#526571}html:lang(th) .contact-card .mailing-optin label{line-height:1.75}
+
+/* Contact actions share keyboard targets while retaining separate enquiry/member journeys. */
+.enquiries-action:focus-visible{outline:3px solid #8ce2d5;outline-offset:4px}
+#enquiry-dialog input,#enquiry-dialog textarea{width:100%;box-sizing:border-box}
+@media(max-width:780px){.is-scrubbing .hero-arrival{right:auto;width:calc(100% - 64px);max-width:360px;box-sizing:border-box}.hero-arrival p{font-weight:400}}
+
+/* Audit: visible page state and accessible email-draft fallback. */
+.site-header nav a[aria-current="page"]{color:#006b65;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:8px}.site-header nav a[aria-current="page"]:after{transform:scaleX(1)}
+.footer-links{display:flex;flex-wrap:wrap;gap:14px 24px}.draft-fallback-note{padding:14px 18px;background:#fff6d9;color:#594512;border:1px solid #d0b66a;border-radius:10px;font-size:1rem;line-height:1.7}.draft-fallback-actions{display:flex;flex-wrap:wrap;gap:12px;margin-block:16px}.draft-fallback-actions .button{min-height:44px}.contact-ready>.contact-edit{margin-bottom:14px}
+.submission-receipt{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:min(90vw,640px);padding:20px 24px;background:#edf8f6;color:#203e52;border:2px solid #00847d;border-radius:18px;box-shadow:0 8px 32px #0003;z-index:9999;font-size:17px;line-height:1.6}.submission-receipt[hidden]{display:none}.submission-receipt:focus{outline:3px solid #54cfc5;outline-offset:3px}form[aria-busy=true]{opacity:.8}form button:disabled{cursor:wait}
+.submission-receipt{padding-right:64px}.receipt-close{position:absolute;right:8px;top:8px;width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:inherit;font-size:28px;cursor:pointer}.receipt-close:hover{background:#00847d18}.receipt-close:focus-visible{outline:3px solid #00847d}
