@@ -20,20 +20,27 @@
   iframe.src=hostedEndpoint+'?action=website-form-bridge&origin='+encodeURIComponent(location.origin)+'&channel='+channel;document.body.append(iframe);
  });}
  const modal=document.querySelector('#enquiry-dialog'),form=document.querySelector('#enquiry-form');
- let activityCard=null;
+ let activityCard=null,proposal=false;
  const val=id=>document.getElementById(id).value.trim();
  function mode(){
   const keys={enquiryHeading:'activityHeading',enquiryIntro:'activityIntro',enquirySubject:'activitySubject',enquiryMessage:'activityMessage',enquiryNote:'activityNote',enquiryPrepare:'activityPrepare'};
   for(const [general,activity] of Object.entries(keys)){
-   const el=modal.querySelector('[data-i18n="'+general+'"],[data-i18n="'+activity+'"]');
-   const key=activityCard?activity:general;el.dataset.i18n=key;el.textContent=SiteUI.text(key,siteLanguage);
+   const el=modal.querySelector('[data-i18n="'+general+'"],[data-i18n="'+activity+'"],[data-i18n="'+general.replace('enquiry','proposal')+'"]');
+   const key=proposal?general.replace('enquiry','proposal'):activityCard?activity:general;el.dataset.i18n=key;el.textContent=SiteUI.text(key,siteLanguage);
   }
  }
  const receipt=document.createElement('div');receipt.id='submission-receipt';receipt.className='submission-receipt';receipt.hidden=true;receipt.tabIndex=-1;receipt.setAttribute('role','status');receipt.setAttribute('aria-live','polite');document.body.append(receipt);
+ // A previous receipt must not cover the next conversation or form controls.
+ document.addEventListener('nori:open',()=>{receipt.hidden=true});
+ document.querySelectorAll('#brief-button,[data-contact-open]').forEach(b=>b.addEventListener('click',()=>{receipt.hidden=true}));
  const previous=window.refreshContactCard;
  window.refreshContactCard=()=>{previous?.();mode();SiteUI.sync(siteLanguage)};
- function open(e,card){e.preventDefault();modal.submissionOpener=e.currentTarget;activityCard=card||null;mode();document.querySelector('#enquiry-status').textContent='';
-  if(card){document.querySelector('#enquiry-subject').value=card.querySelector('[data-activity-title],h4').textContent.trim();document.querySelector('#enquiry-message').value=siteLanguage==='th'?'ฉันสนใจกิจกรรมนี้ โปรดแจ้งรายละเอียดเมื่อพร้อม ฉันเข้าใจว่าวันและสถานที่ยังรอยืนยัน':'I am interested in this activity. Please let me know when details are available. I understand the date and venue are still to be confirmed.';}
+ function open(e,card){e.preventDefault();receipt.hidden=true;modal.submissionOpener=e.currentTarget;const was=proposal?'proposal':activityCard?'activity':'enquiry',next=e.currentTarget.hasAttribute('data-activity-proposal')?'proposal':card?'activity':'enquiry';
+  if(was!==next||activityCard&&card&&activityCard!==card){document.querySelector('#enquiry-subject').value='';document.querySelector('#enquiry-message').value='';}
+  activityCard=card||null;proposal=next==='proposal';mode();document.querySelector('#enquiry-status').textContent='';
+  if(card){document.querySelector('#enquiry-subject').value=card.querySelector('[data-activity-title],h4').textContent.trim();if(!document.querySelector('#enquiry-message').value)document.querySelector('#enquiry-message').value=SiteUI.text('activityInterestMessage',siteLanguage);}
+  else if(proposal){if(!document.querySelector('#enquiry-subject').value)document.querySelector('#enquiry-subject').value=SiteUI.text('proposalDefaultSubject',siteLanguage);document.querySelector('#enquiry-message').placeholder=SiteUI.text('proposalPlaceholder',siteLanguage);}
+  if(!proposal)document.querySelector('#enquiry-message').placeholder='';
   modal.showModal();
  }
  document.querySelectorAll('[data-enquiry-open]').forEach(a=>a.addEventListener('click',e=>open(e)));
@@ -56,15 +63,16 @@
     let response={ok:true},result;
     if(hosted)result=await submitHosted({...data,requestId,website:trap.value},timeout.signal);
     else{response=await fetch('/api/submissions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...data,requestId}),signal:timeout.signal});result=await response.json();}
-    const alreadyRegistered=data.kind==='member'&&result.outcome==='already_registered';
+    if(result?.accepted===false&&['DAILY_LIMIT','WAIT_BEFORE_RETRY','SERVICE_BUSY'].includes(result.code))throw Object.assign(Error('Submission held'),{code:result.code});
+    const alreadyRegistered=data.kind==='member'&&result?.outcome==='already_registered';
     if(!result||!response.ok||result.accepted!==true||!['local-test','owner-email-test','hosted'].includes(result.mode)||result.requestId!==requestId||(!alreadyRegistered&&!result.receiptId))throw Error('No confirmed receipt');
-    dialog.close();f.reset();status.textContent='';previousBody='';requestId='';activityCard=null;mode();
+    dialog.close();f.reset();status.textContent='';previousBody='';requestId='';activityCard=null;proposal=false;mode();
     receipt.replaceChildren();const text=document.createElement('span');text.textContent=SiteUI.text(alreadyRegistered?'alreadyRegistered':'localThanks',lang);const close=document.createElement('button');close.type='button';close.className='receipt-close';close.textContent='×';close.setAttribute('aria-label',lang==='th'?'ปิดข้อความ':'Close message');close.addEventListener('click',()=>{receipt.hidden=true;const trigger=dialog.submissionOpener||document.querySelector(data.kind==='member'?'#brief-button':'[data-enquiry-open], [data-event-interest]');trigger?.focus({preventScroll:true});});receipt.append(text,close);receipt.hidden=false;receipt.focus({preventScroll:true});
-   }catch{status.textContent=SiteUI.text('submitFailed',lang);status.tabIndex=-1;status.focus();}
+   }catch(error){const key={DAILY_LIMIT:'submitDailyLimit',WAIT_BEFORE_RETRY:'submitWait',SERVICE_BUSY:'submitServiceBusy'}[error.code]||'submitFailed';status.textContent=SiteUI.text(key,lang);status.tabIndex=-1;status.focus();}
    finally{clearTimeout(timer);busy=false;f.removeAttribute('aria-busy');controls.forEach((c,i)=>c.disabled=disabled[i]);}
   });
  }
- bind(form,modal,document.querySelector('#enquiry-status'),()=>({kind:activityCard?'activity':'enquiry',language:siteLanguage,name:val('enquiry-name'),email:val('enquiry-email'),subject:val('enquiry-subject'),message:val('enquiry-message'),activityId:activityCard?.id||'',updates:false}));
+ bind(form,modal,document.querySelector('#enquiry-status'),()=>({kind:activityCard?'activity':'enquiry',language:siteLanguage,name:val('enquiry-name'),email:val('enquiry-email'),subject:val('enquiry-subject'),message:val('enquiry-message'),activityId:activityCard?.dataset.activityId||activityCard?.id||'',updates:false}));
  if(member)bind(member,document.querySelector('#brief-dialog'),document.querySelector('#brief-status'),()=>({kind:'member',language:siteLanguage,name:val('contact-name'),email:val('contact-email'),organisation:val('contact-organisation'),message:val('brief-text'),updates:document.querySelector('#contact-updates').checked,consentVersion:'2026-10-12-v1',consentWording:SiteUI.text('updatesOptIn',siteLanguage)}));
  if(!hosted)for(const f of [form,member].filter(Boolean)){const note=document.createElement('p');note.className='contact-local-note';note.dataset.i18n='localTestNote';note.textContent=SiteUI.text('localTestNote',siteLanguage);f.prepend(note);}
  setSiteLanguage(siteLanguage,false);

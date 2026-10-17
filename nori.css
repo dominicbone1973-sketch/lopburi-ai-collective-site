@@ -37,4 +37,12 @@ Coordinate changes with nori.js, mobile keyboards and footer clearance.
 @media(prefers-reduced-motion:reduce){.nori-launcher{transition:none}}
 
 .nori-head,.nori-form,.nori-privacy,.nori-reset-row{flex-shrink:0}.nori-panel{overflow:hidden}
+.nori-panel{width:420px;height:auto;max-height:calc(100dvh - 125px)}
+.nori-content{flex:0 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain}
+.nori-suggestions{max-height:none;overflow:visible;display:grid;grid-template-columns:1fr;padding-bottom:12px}
+.nori-suggestions button{width:100%;padding:9px 12px}
+.nori-messages{flex:none;min-height:0;overflow:visible;padding-bottom:8px}
+.nori-messages:empty,.nori-reset-row[hidden]{display:none}
+.nori-form{padding-top:10px;border-top:1px solid #d4dfe2}
+@media(max-width:780px){.nori-panel{height:auto;max-height:calc(var(--nori-viewport-height,100dvh) - 24px);width:auto}.nori-suggestions{max-height:none}}
 @media(max-width:780px){.nori-launcher{bottom:calc(max(16px,env(safe-area-inset-bottom)) + var(--nori-footer-clearance,0px))}.nori-panel.keyboard-open .nori-greeting,.nori-panel.keyboard-open .nori-suggestions{display:none}.nori-panel.keyboard-open .nori-privacy{font-size:12px;margin:6px 18px 8px}.nori-panel.keyboard-open .nori-head{padding-block:6px}.nori-panel.keyboard-open .nori-art{width:40px;height:40px}.nori-panel.keyboard-open .nori-messages{min-height:30px}}
