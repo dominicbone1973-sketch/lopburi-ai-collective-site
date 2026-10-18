@@ -200,8 +200,6 @@ function updateHeroArrival(filmProgress, moving){
 }
 updateHeroArrival(0,enabled);
 
-// Facebook remains non-interactive until an approved URL is configured.
-(()=>{const config=document.getElementById('contact-social-links');if(!config)return;const url=JSON.parse(config.textContent).facebookUrl;if(!/^https:\/\//.test(url))return;document.querySelectorAll('[data-facebook-card]').forEach(card=>{const a=document.createElement('a');a.className=card.className;a.href=url;a.setAttribute('aria-label','Lopburi AI Collective on Facebook');while(card.firstChild)a.appendChild(card.firstChild);a.querySelector('small').remove();card.replaceWith(a)})})();
 
 // Visible navigation section and event-interest drafts.
 (()=>{

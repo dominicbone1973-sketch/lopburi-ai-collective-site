@@ -1,5 +1,5 @@
 /*
-# Nori presentation
+# LavoJai — ละโว้ใจ presentation (legacy nori selectors retained)
 Floating launcher, clipped avatar and responsive FAQ panel.
 Coordinate changes with nori.js, mobile keyboards and footer clearance.
 */
@@ -46,3 +46,10 @@ Coordinate changes with nori.js, mobile keyboards and footer clearance.
 .nori-form{padding-top:10px;border-top:1px solid #d4dfe2}
 @media(max-width:780px){.nori-panel{height:auto;max-height:calc(var(--nori-viewport-height,100dvh) - 24px);width:auto}.nori-suggestions{max-height:none}}
 @media(max-width:780px){.nori-launcher{bottom:calc(max(16px,env(safe-area-inset-bottom)) + var(--nori-footer-clearance,0px))}.nori-panel.keyboard-open .nori-greeting,.nori-panel.keyboard-open .nori-suggestions{display:none}.nori-panel.keyboard-open .nori-privacy{font-size:12px;margin:6px 18px 8px}.nori-panel.keyboard-open .nori-head{padding-block:6px}.nori-panel.keyboard-open .nori-art{width:40px;height:40px}.nori-panel.keyboard-open .nori-messages{min-height:30px}}
+
+/* Static approved full-body artwork: preserve tufts, waving hand and feet. */
+.nori-art{width:72px;height:78px;border-radius:14px;clip-path:none;overflow:visible;background:transparent;box-shadow:none}
+.nori-art img{position:static;width:100%;height:100%;inset:auto;object-fit:contain;border-radius:0;clip-path:none}
+.nori-head .nori-art{width:72px;height:80px}
+.nori-head>div{min-width:0}.nori-head h2{font-size:20px;overflow-wrap:normal}.nori-head p{font-size:12px}
+@media(max-width:780px){.nori-launcher{width:72px;height:78px;border-radius:20px;overflow:visible;padding:3px}.nori-launcher .nori-art{width:64px;height:70px}.nori-head .nori-art{width:60px;height:70px}.nori-head h2{font-size:18px}.nori-head p{font-size:12px}.nori-panel.keyboard-open .nori-art{width:40px;height:44px}}
