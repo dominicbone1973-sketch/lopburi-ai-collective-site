@@ -595,4 +595,6 @@ html:lang(th) .section .button,html:lang(th) .section .text-link{line-height:1.6
 .site-header nav a.nav-contact{padding:9px 15px;border:1px solid var(--teal);border-radius:8px;background:var(--teal);color:#fff;font-weight:600;text-align:center;text-decoration:none}.site-header nav a.nav-contact:hover{background:#006b65;border-color:#006b65;color:#fff}.site-header nav a.nav-contact[aria-current]{color:#fff;text-decoration:underline;text-underline-offset:4px}
 
 /* Linked Facebook Page tile matches the LINE frame without a QR placeholder. */
-.facebook-icon-frame{background:#fff;border:1px solid #d4dfe2}.facebook-icon-frame svg{width:96px;height:96px;max-width:70%;max-height:70%}.qr-placeholder.facebook-contact .facebook-icon-frame{width:160px;max-width:100%;aspect-ratio:1;margin-inline:auto}.facebook-contact[href]{cursor:pointer}
+.facebook-icon-frame{background:#1877f2;border:0}.facebook-icon-frame svg{width:96px;height:96px;max-width:70%;max-height:70%}.qr-placeholder.facebook-contact .facebook-icon-frame{width:160px;max-width:100%;aspect-ratio:1;margin-inline:auto}.facebook-contact[href]{cursor:pointer}
+
+.facebook-icon-frame img{width:96px;height:96px;max-width:70%;max-height:70%;object-fit:contain}
